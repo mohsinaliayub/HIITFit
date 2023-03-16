@@ -28,6 +28,7 @@
 		68E81CEE29C215B3006DA246 /* HistoryStoreDevData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81CED29C215B3006DA246 /* HistoryStoreDevData.swift */; };
 		68E81CF029C23A27006DA246 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81CEF29C23A27006DA246 /* TestView.swift */; };
 		68E81CF329C265F9006DA246 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68E81CF529C265F9006DA246 /* Localizable.strings */; };
+		68E81CF829C349B5006DA246 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81CF729C349B5006DA246 /* TimerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		68E81CEF29C23A27006DA246 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		68E81CF429C265F9006DA246 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68E81CF629C26AB1006DA246 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		68E81CF729C349B5006DA246 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				68E81CE029C1D02A006DA246 /* RatingView.swift */,
 				68E81CE629C20043006DA246 /* SuccessView.swift */,
 				68E81CEF29C23A27006DA246 /* TestView.swift */,
+				68E81CF729C349B5006DA246 /* TimerView.swift */,
 				6823CC4D29B9F242000B18EB /* WelcomeView.swift */,
 			);
 			path = Views;
@@ -219,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68E81CF829C349B5006DA246 /* TimerView.swift in Sources */,
 				68E81CF029C23A27006DA246 /* TestView.swift in Sources */,
 				6823CC5029B9F24B000B18EB /* ExerciseView.swift in Sources */,
 				6823CC6029BA187F000B18EB /* ImageExtension.swift in Sources */,
