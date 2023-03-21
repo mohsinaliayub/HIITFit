@@ -11,12 +11,25 @@ struct RatingView: View {
     let exerciseIndex: Int
     // Rating values are stored as a string. There are four exercises in our app,
     // so "ratings" will hold 4 character representing the rating of individual exercise.
-    @AppStorage("ratings") private var ratings = "4000"
+    @AppStorage("ratings") private var ratings = ""
     @State private var rating = 0
     
     private let maximumRating = 5
     private let onColor = Color.red
     private let offColor = Color.gray
+    
+    init(exerciseIndex: Int) {
+        self.exerciseIndex = exerciseIndex
+        
+        // Keep the length of "ratings" UserDefaults, the same as the
+        // number of exercises in the app.
+        let desiredLength = Exercise.exercises.count
+        if ratings.count < desiredLength {
+            // if our ratings count isn't the same as the number of exercises
+            // add a padding for each exercise.
+            ratings = ratings.padding(toLength: desiredLength, withPad: "0", startingAt: 0)
+        }
+    }
     
     var body: some View {
         HStack {
