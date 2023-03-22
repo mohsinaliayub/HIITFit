@@ -39,17 +39,21 @@ struct RatingView: View {
                     .onTapGesture {
                         updateRating(index: index)
                     }
-                    .onAppear {
-                        // Read the rating value from UserDefaults keyed "ratings",
-                        // and get the rating for a specific exercise.
-                        let index = ratings.index(ratings.startIndex,
-                                                  offsetBy: exerciseIndex)
-                        let character = ratings[index]
-                        rating = character.wholeNumberValue ?? 0
+                    .onChange(of: ratings) { _ in
+                        convertRating()
                     }
             }
         }
         .font(.largeTitle)
+    }
+    
+    fileprivate func convertRating() {
+        // Read the rating value from UserDefaults keyed "ratings",
+        // and get the rating for a specific exercise.
+        let index = ratings.index(ratings.startIndex,
+                                  offsetBy: exerciseIndex)
+        let character = ratings[index]
+        rating = character.wholeNumberValue ?? 0
     }
     
     private func updateRating(index: Int) {
