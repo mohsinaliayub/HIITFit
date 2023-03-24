@@ -8,9 +8,21 @@
 import Foundation
 
 struct ExerciseDay: Identifiable {
-    let id = UUID()
+    let id: UUID
     let date: Date
     var exercises: [String] = []
+    
+    init(id: String, date: Date, exercises: [String]) {
+        self.id = UUID(uuidString: id) ?? UUID()
+        self.date = date
+        self.exercises = exercises
+    }
+    
+    init(date: Date, exercises: [String]) {
+        self.id = UUID()
+        self.date = date
+        self.exercises = exercises
+    }
 }
 
 class HistoryStore: ObservableObject {
@@ -45,7 +57,20 @@ class HistoryStore: ObservableObject {
     }
     
     func load() throws {
+        guard let dataURL = getURL() else {
+            throw FileError.urlFailure
+        }
         
+        guard let data = try? Data(contentsOf: dataURL) else { return }
+        
+        let plistData = try PropertyListSerialization.propertyList(from: data, format: nil)
+        
+        let convertedPlistData = plistData as? [[Any]] ?? []
+        
+        // mapping our data from property list file to an array of ExerciseDay objects.
+        exerciseDays = convertedPlistData.map({
+            ExerciseDay(id: $0[0] as? String ?? UUID().uuidString, date: $0[1] as? Date ?? Date(), exercises: $0[2] as? [String] ?? [])
+        })
     }
     
     /// Get the URL for the history file.
