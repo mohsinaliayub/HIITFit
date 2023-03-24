@@ -16,8 +16,10 @@ struct ExerciseDay: Identifiable {
 class HistoryStore: ObservableObject {
     @Published var exerciseDays: [ExerciseDay] = []
     
-    init() {
-//        createDevData()
+    init() { }
+    
+    init(withChecking: Bool) throws {
+        try load()
     }
     
     func addDoneExercise(_ exerciseName: String) {
@@ -34,5 +36,15 @@ class HistoryStore: ObservableObject {
             let exercise = ExerciseDay(date: today, exercises: [exerciseName])
             exerciseDays.insert(exercise, at: 0)
         }
+    }
+    
+    func load() throws {
+        throw FileError.loadFailure
+    }
+    
+    enum FileError: Error {
+        case loadFailure
+        case saveFailure
+        case urlFailure
     }
 }
