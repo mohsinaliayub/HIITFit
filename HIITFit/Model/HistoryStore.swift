@@ -17,7 +17,7 @@ class HistoryStore: ObservableObject {
     @Published var exerciseDays: [ExerciseDay] = []
     
     init() {
-        createDevData()
+//        createDevData()
     }
     
     func addDoneExercise(_ exerciseName: String) {
@@ -26,7 +26,7 @@ class HistoryStore: ObservableObject {
         // The first element of `exerciseDays´ is the user's most recent exercise day.
         // If today is the same date as this date, you append current exerciseName to exercises
         // array of this exerciseDay.
-        if today.isSameDay(as: exerciseDays[0].date) {
+        if let firstDate = exerciseDays.first?.date, today.isSameDay(as: firstDate) {
             exerciseDays[0].exercises.append(exerciseName)
         } else {
             // Today is a new day, so create a new ExerciseDay object and insert it at the
@@ -34,5 +34,7 @@ class HistoryStore: ObservableObject {
             let exercise = ExerciseDay(date: today, exercises: [exerciseName])
             exerciseDays.insert(exercise, at: 0)
         }
+        
+        print("History: ", exerciseDays)
     }
 }
