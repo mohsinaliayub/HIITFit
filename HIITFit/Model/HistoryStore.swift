@@ -34,7 +34,5 @@ class HistoryStore: ObservableObject {
             let exercise = ExerciseDay(date: today, exercises: [exerciseName])
             exerciseDays.insert(exercise, at: 0)
         }
-        
-        print("History: ", exerciseDays)
     }
 }
