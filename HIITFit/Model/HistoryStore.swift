@@ -36,10 +36,51 @@ class HistoryStore: ObservableObject {
             let exercise = ExerciseDay(date: today, exercises: [exerciseName])
             exerciseDays.insert(exercise, at: 0)
         }
+        
+        do {
+            try save()
+        } catch {
+            fatalError(error.localizedDescription)
+        }
     }
     
     func load() throws {
-        throw FileError.loadFailure
+        
+    }
+    
+    /// Get the URL for the history file.
+    private func getURL() -> URL? {
+        guard let documentsURL = FileManager.default
+            .urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        
+        return documentsURL.appending(path: "history.plist")
+    }
+    
+    /// Persists the current exercise history to history file.
+    private func save() throws {
+        guard let dataURL = getURL() else {
+            throw FileError.urlFailure
+        }
+        
+        // convert each ExerciseDay element into an array of Any,
+        // and append this to the array. We'll save plistData to disk.
+        let plistData: [[Any]] = exerciseDays.map { exerciseDay in
+            [
+                exerciseDay.id.uuidString,
+                exerciseDay.date,
+                exerciseDay.exercises
+            ]
+        }
+        
+        do {
+            let data = try PropertyListSerialization.data(fromPropertyList: plistData,
+                                                          format: .binary, options: .zero)
+            try data.write(to: dataURL, options: .atomic)
+        } catch {
+            throw FileError.saveFailure
+        }
     }
     
     enum FileError: Error {
