@@ -17,10 +17,8 @@ struct WelcomeView: View {
                 HeaderView(selectedTab: $selectedTab,
                            titleText: NSLocalizedString("Welcome", comment: "greeting"))
                 Spacer()
-                Button(NSLocalizedString("History", comment: "view user activity")) {
-                    showHistory.toggle()
-                }
-                .padding(.bottom)
+                
+                historyButton
                 .sheet(isPresented: $showHistory) {
                     HistoryView(showHistory: $showHistory)
                 }
@@ -40,18 +38,28 @@ struct WelcomeView: View {
                         .clipShape(Circle())
                 }
                 
-                Button(action: { selectedTab = 0 }) {
-                    Text(NSLocalizedString("Get Started", comment: "invitation"))
-                    Image(systemName: "arrow.right.circle")
-                }
-                .font(.title2)
-                .padding()
-                .background {
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.gray, lineWidth: 2)
-                }
+                getStartedButton
             }
         }
+    }
+    
+    var getStartedButton: some View {
+        RaisedButton(buttonText: "Get Started") {
+            selectedTab = 0
+        }
+        .padding()
+    }
+    
+    var historyButton: some View {
+        Button {
+            showHistory = true
+        } label: {
+            Text(NSLocalizedString("History", comment: "view user activity"))
+                .fontWeight(.bold)
+                .padding([.leading, .trailing], 10)
+        }
+        .padding(.bottom, 10)
+        .buttonStyle(EmbossedButtonStyle())
     }
 }
 

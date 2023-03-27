@@ -37,10 +37,7 @@ struct ExerciseView: View {
                 }
                 
                 HStack(spacing: 150) {
-                    Button("Start Exercise") {
-                        // Start the timer
-                        showTimer.toggle()
-                    }
+                    startExerciseButton
                     
                     Button("Done") {
                         // add the exercise to History
@@ -71,15 +68,30 @@ struct ExerciseView: View {
                 RatingView(exerciseIndex: index)
                     .padding()
                 
-                Button(NSLocalizedString("History", comment: "view user activity")) {
-                    showHistory.toggle()
-                }
-                .padding(.bottom)
+                historyButton
                 .sheet(isPresented: $showHistory) {
                     HistoryView(showHistory: $showHistory)
                 }
             }
         }
+    }
+    
+    var startExerciseButton: some View {
+        RaisedButton(buttonText: "Start Exercise") {
+            showTimer.toggle()
+        }
+    }
+    
+    var historyButton: some View {
+        Button {
+            showHistory = true
+        } label: {
+            Text(NSLocalizedString("History", comment: "view user activity"))
+                .fontWeight(.bold)
+                .padding([.leading, .trailing], 10)
+        }
+        .padding(.bottom, 10)
+        .buttonStyle(EmbossedButtonStyle())
     }
 }
 
