@@ -14,7 +14,13 @@ struct ExerciseView: View {
     @State private var showSuccess = false
     @State private var timerDone = false
     @State private var showTimer = false
+    @State private var showSheet = false // controls whether to show or hide action sheet
     @EnvironmentObject var history: HistoryStore
+    
+    @State private var exerciseSheet: ExerciseSheet?
+    private enum ExerciseSheet { // represents what kind of action sheet should be shown
+        case history, timer, success
+    }
     
     let index: Int
     var lastExercise: Bool {
@@ -27,47 +33,52 @@ struct ExerciseView: View {
                 HeaderView(selectedTab: $selectedTab,
                            titleText: Exercise.exercises[index].exerciseName)
                     .padding(.bottom)
-                
+                Spacer()
                 ContainerView {
                     VStack {
                         video(size: geometry.size)
-                        
-                        HStack(spacing: 150) {
-                            startExerciseButton
-                            
-                            Button("Done") {
-                                // add the exercise to History
-                                history.addDoneExercise(Exercise.exercises[index].exerciseName)
-                                
-                                // When this button is enabled, timer is done,
-                                // So you reset it to false to disable the button.
-                                timerDone = false
-                                showTimer.toggle() // hide the timer
-                                
-                                if lastExercise { showSuccess.toggle() }
-                                else { selectedTab += 1 }
-                            }
-                            .disabled(!timerDone) // if timer is done, enable the button
-                            .sheet(isPresented: $showSuccess) {
-                                SuccessView(selectedTab: $selectedTab)
-                            }
-                        }
-                        .font(.title3)
-                        .padding()
-                        
-                        if showTimer {
-                            TimerView(timerDone: $timerDone)
-                        }
-                        
-                        Spacer()
-                        
+                        startExerciseButton
+                            .padding(20)
                         RatingView(exerciseIndex: index)
                             .padding()
-                        
+                        Spacer()
                         historyButton
-                            .sheet(isPresented: $showHistory) {
-                                HistoryView(showHistory: $showHistory)
-                            }
+                    }
+                }
+                .frame(height: geometry.size.height * 0.8)
+                .sheet(isPresented: $showSheet) {
+                    showSuccess = false
+                    showHistory = false
+                    if exerciseSheet == .timer {
+                        if timerDone {
+                            history.addDoneExercise(Exercise.exercises[index].exerciseName)
+                            timerDone = false
+                        }
+                        showTimer = false
+                        if lastExercise {
+                            showSuccess = true
+                            showSheet = true
+                            exerciseSheet = .success
+                        } else {
+                            selectedTab += 1
+                        }
+                    } else {
+                        exerciseSheet = nil
+                    }
+                    showTimer = false
+                } content: {
+                    if let exerciseSheet = exerciseSheet {
+                        switch exerciseSheet {
+                        case .history:
+                            HistoryView(showHistory: $showHistory)
+                                .environmentObject(history)
+                        case .timer:
+                            TimerView(
+                                timerDone: $timerDone,
+                                exerciseName: Exercise.exercises[index].exerciseName)
+                        case .success:
+                            SuccessView(selectedTab: $selectedTab)
+                        }
                     }
                 }
             }
@@ -90,12 +101,16 @@ struct ExerciseView: View {
     var startExerciseButton: some View {
         RaisedButton(buttonText: "Start Exercise") {
             showTimer.toggle()
+            showSheet = true
+            exerciseSheet = .timer // show the timer sheet as exercise is running.
         }
     }
     
     var historyButton: some View {
         Button {
             showHistory = true
+            showSheet = true
+            exerciseSheet = .history
         } label: {
             Text(NSLocalizedString("History", comment: "view user activity"))
                 .fontWeight(.bold)
