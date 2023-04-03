@@ -32,7 +32,6 @@
 		68E81CE929C210A6006DA246 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81CE829C210A6006DA246 /* Exercise.swift */; };
 		68E81CEB29C213DD006DA246 /* HistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81CEA29C213DD006DA246 /* HistoryStore.swift */; };
 		68E81CEE29C215B3006DA246 /* HistoryStoreDevData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81CED29C215B3006DA246 /* HistoryStoreDevData.swift */; };
-		68E81CF029C23A27006DA246 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81CEF29C23A27006DA246 /* TestView.swift */; };
 		68E81CF329C265F9006DA246 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68E81CF529C265F9006DA246 /* Localizable.strings */; };
 		68E81CF829C349B5006DA246 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E81CF729C349B5006DA246 /* TimerView.swift */; };
 /* End PBXBuildFile section */
@@ -65,7 +64,6 @@
 		68E81CE829C210A6006DA246 /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		68E81CEA29C213DD006DA246 /* HistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStore.swift; sourceTree = "<group>"; };
 		68E81CED29C215B3006DA246 /* HistoryStoreDevData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStoreDevData.swift; sourceTree = "<group>"; };
-		68E81CEF29C23A27006DA246 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		68E81CF429C265F9006DA246 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68E81CF629C26AB1006DA246 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		68E81CF729C349B5006DA246 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
@@ -101,14 +99,12 @@
 		6823CC3E29B9E226000B18EB /* HIITFit */ = {
 			isa = PBXGroup;
 			children = (
-				682F3F9429CDC59400F28D7F /* Info.plist */,
 				6823CC3F29B9E226000B18EB /* HIITFitApp.swift */,
-				6823CC5D29BA187F000B18EB /* DateExtension.swift */,
-				6823CC5E29BA187F000B18EB /* ImageExtension.swift */,
 				6823CC5129B9F26A000B18EB /* Views */,
 				68E81CEC29C213E5006DA246 /* Model */,
 				6823CC5429BA1869000B18EB /* Videos */,
 				68E81CF529C265F9006DA246 /* Localizable.strings */,
+				682F3F9429CDC59400F28D7F /* Info.plist */,
 				6823CC4329B9E227000B18EB /* Assets.xcassets */,
 				6823CC4529B9E227000B18EB /* Preview Content */,
 			);
@@ -127,21 +123,11 @@
 		6823CC5129B9F26A000B18EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6843800F29DA5A2D00CE3C68 /* Buttons */,
+				6843801029DA5A4800CE3C68 /* Containers */,
+				6843801129DA5A7700CE3C68 /* Helpers */,
+				6843801229DA5AA200CE3C68 /* Core Views */,
 				6823CC4129B9E226000B18EB /* ContentView.swift */,
-				6823CC4F29B9F24B000B18EB /* ExerciseView.swift */,
-				68E81CDE29BF20C3006DA246 /* HeaderView.swift */,
-				68E81CE429C1ED7D006DA246 /* HistoryView.swift */,
-				68E81CE029C1D02A006DA246 /* RatingView.swift */,
-				68E81CE629C20043006DA246 /* SuccessView.swift */,
-				68E81CEF29C23A27006DA246 /* TestView.swift */,
-				68E81CF729C349B5006DA246 /* TimerView.swift */,
-				6823CC4D29B9F242000B18EB /* WelcomeView.swift */,
-				682F3F9529CDD9A000F28D7F /* WelcomeImages.swift */,
-				682F3F9729D185B300F28D7F /* RaisedButton.swift */,
-				682F3F9929D18C7800F28D7F /* EmbossedButton.swift */,
-				682F3F9B29D198AF00F28D7F /* ContainerView.swift */,
-				682F3F9D29D19DCC00F28D7F /* GradientBackground.swift */,
-				6843800D29DA55EF00CE3C68 /* IndentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -157,9 +143,60 @@
 			path = Videos;
 			sourceTree = "<group>";
 		};
+		6843800F29DA5A2D00CE3C68 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				682F3F9929D18C7800F28D7F /* EmbossedButton.swift */,
+				682F3F9729D185B300F28D7F /* RaisedButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		6843801029DA5A4800CE3C68 /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				682F3F9B29D198AF00F28D7F /* ContainerView.swift */,
+				6843800D29DA55EF00CE3C68 /* IndentView.swift */,
+			);
+			path = Containers;
+			sourceTree = "<group>";
+		};
+		6843801129DA5A7700CE3C68 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				682F3F9D29D19DCC00F28D7F /* GradientBackground.swift */,
+				682F3F9529CDD9A000F28D7F /* WelcomeImages.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		6843801229DA5AA200CE3C68 /* Core Views */ = {
+			isa = PBXGroup;
+			children = (
+				6823CC4F29B9F24B000B18EB /* ExerciseView.swift */,
+				68E81CDE29BF20C3006DA246 /* HeaderView.swift */,
+				68E81CE429C1ED7D006DA246 /* HistoryView.swift */,
+				68E81CE029C1D02A006DA246 /* RatingView.swift */,
+				68E81CE629C20043006DA246 /* SuccessView.swift */,
+				68E81CF729C349B5006DA246 /* TimerView.swift */,
+				6823CC4D29B9F242000B18EB /* WelcomeView.swift */,
+			);
+			path = "Core Views";
+			sourceTree = "<group>";
+		};
+		6843801329DA5AC400CE3C68 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6823CC5D29BA187F000B18EB /* DateExtension.swift */,
+				6823CC5E29BA187F000B18EB /* ImageExtension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		68E81CEC29C213E5006DA246 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6843801329DA5AC400CE3C68 /* Helpers */,
 				68E81CE829C210A6006DA246 /* Exercise.swift */,
 				68E81CEA29C213DD006DA246 /* HistoryStore.swift */,
 			);
@@ -244,7 +281,6 @@
 			files = (
 				682F3F9629CDD9A000F28D7F /* WelcomeImages.swift in Sources */,
 				68E81CF829C349B5006DA246 /* TimerView.swift in Sources */,
-				68E81CF029C23A27006DA246 /* TestView.swift in Sources */,
 				6823CC5029B9F24B000B18EB /* ExerciseView.swift in Sources */,
 				6823CC6029BA187F000B18EB /* ImageExtension.swift in Sources */,
 				682F3F9E29D19DCC00F28D7F /* GradientBackground.swift in Sources */,
