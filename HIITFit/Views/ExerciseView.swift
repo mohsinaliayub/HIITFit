@@ -28,51 +28,62 @@ struct ExerciseView: View {
                            titleText: Exercise.exercises[index].exerciseName)
                     .padding(.bottom)
                 
-                if let url = Bundle.main.url(forResource: Exercise.exercises[index].videoName, withExtension: "mp4") {
-                    VideoPlayer(player: AVPlayer(url: url))
-                        .frame(height: geometry.size.height * 0.45)
-                } else {
-                    Text("Couldn't find \(Exercise.exercises[index].videoName).mp4")
-                        .foregroundColor(.red)
-                }
-                
-                HStack(spacing: 150) {
-                    startExerciseButton
-                    
-                    Button("Done") {
-                        // add the exercise to History
-                        history.addDoneExercise(Exercise.exercises[index].exerciseName)
+                ContainerView {
+                    VStack {
+                        video(size: geometry.size)
                         
-                        // When this button is enabled, timer is done,
-                        // So you reset it to false to disable the button.
-                        timerDone = false
-                        showTimer.toggle() // hide the timer
+                        HStack(spacing: 150) {
+                            startExerciseButton
+                            
+                            Button("Done") {
+                                // add the exercise to History
+                                history.addDoneExercise(Exercise.exercises[index].exerciseName)
+                                
+                                // When this button is enabled, timer is done,
+                                // So you reset it to false to disable the button.
+                                timerDone = false
+                                showTimer.toggle() // hide the timer
+                                
+                                if lastExercise { showSuccess.toggle() }
+                                else { selectedTab += 1 }
+                            }
+                            .disabled(!timerDone) // if timer is done, enable the button
+                            .sheet(isPresented: $showSuccess) {
+                                SuccessView(selectedTab: $selectedTab)
+                            }
+                        }
+                        .font(.title3)
+                        .padding()
                         
-                        if lastExercise { showSuccess.toggle() }
-                        else { selectedTab += 1 }
+                        if showTimer {
+                            TimerView(timerDone: $timerDone)
+                        }
+                        
+                        Spacer()
+                        
+                        RatingView(exerciseIndex: index)
+                            .padding()
+                        
+                        historyButton
+                            .sheet(isPresented: $showHistory) {
+                                HistoryView(showHistory: $showHistory)
+                            }
                     }
-                    .disabled(!timerDone) // if timer is done, enable the button
-                    .sheet(isPresented: $showSuccess) {
-                        SuccessView(selectedTab: $selectedTab)
-                    }
-                }
-                .font(.title3)
-                .padding()
-                
-                if showTimer {
-                    TimerView(timerDone: $timerDone)
-                }
-                
-                Spacer()
-                
-                RatingView(exerciseIndex: index)
-                    .padding()
-                
-                historyButton
-                .sheet(isPresented: $showHistory) {
-                    HistoryView(showHistory: $showHistory)
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    func video(size: CGSize) -> some View {
+        if let url = Bundle.main.url(forResource: Exercise.exercises[index].videoName, withExtension: "mp4") {
+            VideoPlayer(player: AVPlayer(url: url))
+                .frame(height: size.height * 0.25)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .padding(20)
+        } else {
+            Text("Couldn't find \(Exercise.exercises[index].videoName).mp4")
+                .foregroundColor(.red)
         }
     }
     
